@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dice – Diceroll</title>
+    <meta
+      name="description"
+      content="Roll up to 10 dice at once. Pick a d2, d4, d6, d8, d10, d12, d20 or d100 and get each result plus the total."
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -12,7 +16,7 @@
         <a class="logo" href="index.html">Diceroll</a>
         <ul>
           <li><a class="link" href="index.html">Home</a></li>
-          <li><a class="link active" href="dice.html">Roll dice</a></li>
+          <li><a class="link active" href="dice.html">Dice</a></li>
         </ul>
       </nav>
     </header>
@@ -53,12 +57,12 @@
         b.type = "button";
         b.className = "die";
         b.textContent = "d" + n;
-        b.setAttribute("pressed", n === sides);
+        b.setAttribute("aria-pressed", n === sides);
         b.addEventListener("click", () => {
           sides = n;
           picker
             .querySelectorAll(".die")
-            .forEach((d) => d.setAttribute("pressed", d === b));
+            .forEach((d) => d.setAttribute("aria-pressed", d === b));
         });
         picker.appendChild(b);
       });
@@ -95,10 +99,11 @@
       }
 
       document.getElementById("roll").addEventListener("click", () => {
-        const rolls = Array.from({ length: count }, () =>
-          Math.floor(Math.random() * sides) + 1,
+        const rolls = Array.from(
+          { length: count },
+          () => Math.floor(Math.random() * sides) + 1,
         );
-        const total = showResult(rolls);
+        showResult(rolls);
       });
     </script>
   </body>

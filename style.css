@@ -48,9 +48,6 @@ nav {
   text-decoration: none;
   letter-spacing: -0.02em;
 }
-.logo span {
-  color: var(--violet);
-}
 nav ul {
   list-style: none;
   display: flex;
@@ -114,9 +111,6 @@ p.lead {
   color: var(--text);
   border-color: var(--line);
 }
-.btn.ghost:hover {
-  border-color: var(--violet);
-}
 
 .features {
   display: grid;
@@ -155,7 +149,7 @@ p.lead {
 .die:hover {
   border-color: var(--violet);
 }
-.die[pressed="true"] {
+.die[aria-pressed="true"] {
   background: var(--violet);
   border-color: var(--violet);
   color: #fff;
@@ -221,9 +215,6 @@ p.lead {
 }
 .empty {
   color: var(--muted);
-}
-.result.rolling .total {
-  opacity: 0.4;
 }
 
 footer {
