@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dice – Diceroll</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a class="logo" href="index.html">Diceroll</a>
+        <ul>
+          <li><a class="link" href="index.html">Home</a></li>
+          <li><a class="link active" href="dice.html">Roll dice</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Choose a die</h2>
+      <div class="dice-picker" id="picker"></div>
+
+      <div class="controls">
+        <div class="count">
+          <button type="button" id="minus">−</button>
+          <output id="count">1</output>
+          <button type="button" id="plus">+</button>
+        </div>
+        <button type="button" class="btn" id="roll">Roll</button>
+      </div>
+
+      <section class="result" id="result">
+        <p class="empty">Results</p>
+      </section>
+    </main>
+
+    <footer>Tom Chovanec</footer>
+
+    <script>
+      const SIDES = [2, 4, 6, 8, 10, 12, 20, 100];
+      const MAX_DICE = 10;
+
+      let sides = 6;
+      let count = 1;
+
+      const picker = document.getElementById("picker");
+      const countEl = document.getElementById("count");
+      const resultEl = document.getElementById("result");
+
+      SIDES.forEach((n) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "die";
+        b.textContent = "d" + n;
+        b.setAttribute("pressed", n === sides);
+        b.addEventListener("click", () => {
+          sides = n;
+          picker
+            .querySelectorAll(".die")
+            .forEach((d) => d.setAttribute("pressed", d === b));
+        });
+        picker.appendChild(b);
+      });
+
+      function setCount(n) {
+        count = Math.min(MAX_DICE, Math.max(1, n));
+        countEl.textContent = count;
+      }
+      document
+        .getElementById("minus")
+        .addEventListener("click", () => setCount(count - 1));
+      document
+        .getElementById("plus")
+        .addEventListener("click", () => setCount(count + 1));
+
+      function showResult(rolls) {
+        const total = rolls.reduce((a, b) => a + b, 0);
+        resultEl.innerHTML = "";
+        const t = document.createElement("div");
+        t.className = "total";
+        t.textContent = total;
+        resultEl.appendChild(t);
+        if (rolls.length > 1) {
+          const r = document.createElement("div");
+          r.className = "rolls";
+          rolls.forEach((v) => {
+            const s = document.createElement("span");
+            s.textContent = v;
+            r.appendChild(s);
+          });
+          resultEl.appendChild(r);
+        }
+        return total;
+      }
+
+      document.getElementById("roll").addEventListener("click", () => {
+        const rolls = Array.from({ length: count }, () =>
+          Math.floor(Math.random() * sides),
+        );
+        const total = showResult(rolls);
+      });
+    </script>
+  </body>
+</html>
