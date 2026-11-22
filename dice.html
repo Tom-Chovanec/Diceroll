@@ -96,7 +96,7 @@
 
       document.getElementById("roll").addEventListener("click", () => {
         const rolls = Array.from({ length: count }, () =>
-          Math.floor(Math.random() * sides),
+          Math.floor(Math.random() * sides) + 1,
         );
         const total = showResult(rolls);
       });
